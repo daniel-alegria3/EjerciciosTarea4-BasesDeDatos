@@ -1,10 +1,60 @@
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{WITH}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{(}\PYG{n}{CodPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
-\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}
-\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Amortizacion}\PYG{+w}{ }\PYG{n}{A}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{p}{.}\PYG{n}{DocPrestamo}
-\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}
-\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{n}{P}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{k}{IsNull}\PYG{p}{(}\PYG{n}{A}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{))}
-\PYG{p}{)}
-\PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarPrestamos}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{;}
+\PYG{n}{use}\PYG{+w}{ }\PYG{n}{DBCreditoRural}\PYG{p}{;}
 \PYG{k}{go}
+\PYG{k}{set}\PYG{+w}{ }\PYG{n}{dateformat}\PYG{+w}{ }\PYG{n}{dMy}
+\PYG{k}{go}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}[[[ LIMPIAR ]]]}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarComunidades}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarPrestatarios}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarPrestamos}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarOficiales}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{TTablaComunidades}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{TTablaPrestatarios}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{TTablaPrestamos}\PYG{p}{;}
+\PYG{k}{DROP}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{k}{IF}\PYG{+w}{ }\PYG{k}{EXISTS}\PYG{+w}{ }\PYG{n}{TTablaOficiales}\PYG{p}{;}
+\PYG{k}{go}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}[[[ TYPOS ]]]}
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{n}{TTablaComunidades}\PYG{+w}{ }\PYG{k}{AS}\PYG{+w}{ }\PYG{k}{TABLE}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{n}{TCodComunidad}\PYG{p}{)}
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{n}{TTablaPrestatarios}\PYG{+w}{ }\PYG{k}{AS}\PYG{+w}{ }\PYG{k}{TABLE}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{n}{TCodPrestatario}\PYG{p}{)}
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{n}{TTablaPrestamos}\PYG{+w}{ }\PYG{k}{AS}\PYG{+w}{ }\PYG{k}{TABLE}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{DocPrestamo}\PYG{+w}{ }\PYG{n}{TDocPrestamo}\PYG{p}{)}
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{TYPE}\PYG{+w}{ }\PYG{n}{TTablaOficiales}\PYG{+w}{ }\PYG{k}{AS}\PYG{+w}{ }\PYG{k}{TABLE}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{n}{TCodOficial}\PYG{p}{)}
+\PYG{k}{go}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}[[[ PORCEDIMIENTOS ]]]}
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarComunidades}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaComunidades}\PYG{+w}{ }\PYG{n}{TTablaComunidades}\PYG{+w}{ }\PYG{n}{READONLY}
+\PYG{k}{AS}
+\PYG{k}{BEGIN}
+\PYG{+w}{    }\PYG{k}{select}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{Nombre}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{NombreComunidad}
+\PYG{+w}{    }\PYG{k}{from}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaComunidades}\PYG{+w}{ }\PYG{n}{T}
+\PYG{+w}{    }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{k}{END}\PYG{p}{;}
+
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarPrestatarios}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaPrestatarios}\PYG{+w}{ }\PYG{n}{TTablaPrestatarios}\PYG{+w}{ }\PYG{n}{READONLY}
+\PYG{k}{AS}
+\PYG{k}{BEGIN}
+\PYG{+w}{    }\PYG{k}{select}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{Nombres}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{NombresPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocIdentidad}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{DocIdentidadPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{from}\PYG{+w}{ }\PYG{n}{Prestatario}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaPrestatarios}\PYG{+w}{ }\PYG{n}{T}
+\PYG{+w}{    }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodPrestatario}
+\PYG{k}{END}\PYG{p}{;}
+
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarPrestamos}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaPrestamos}\PYG{+w}{ }\PYG{n}{TTablaPrestamos}\PYG{+w}{ }\PYG{n}{READONLY}
+\PYG{k}{AS}
+\PYG{k}{BEGIN}
+\PYG{+w}{    }\PYG{k}{select}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{Importe}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{ImportePrestamo}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaVencimiento}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{from}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaPrestamos}\PYG{+w}{ }\PYG{n}{T}
+\PYG{+w}{    }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{DocPrestamo}
+\PYG{k}{END}\PYG{p}{;}
+
+\PYG{k}{CREATE}\PYG{+w}{ }\PYG{k}{PROCEDURE}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarOficiales}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaOficiales}\PYG{+w}{ }\PYG{n}{TTablaOficiales}\PYG{+w}{ }\PYG{n}{READONLY}
+\PYG{k}{AS}
+\PYG{k}{BEGIN}
+\PYG{+w}{    }\PYG{k}{select}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{Nombres}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{NombreOficial}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{Email}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{EmailOficial}
+\PYG{+w}{    }\PYG{k}{from}\PYG{+w}{ }\PYG{n}{Oficial}\PYG{+w}{ }\PYG{n}{O}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{o}{@}\PYG{n}{TablaOficiales}\PYG{+w}{ }\PYG{n}{T}
+\PYG{+w}{    }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{k}{END}\PYG{p}{;}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} exec proc\PYGZus{}Procedimiento table}
+
 \end{Verbatim}

@@ -5,12 +5,11 @@
 \PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Amortizacion}\PYG{+w}{ }\PYG{n}{A}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{p}{.}\PYG{n}{DocPrestamo}
 \PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaVencimiento}
 \PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{k}{IsNull}\PYG{p}{(}\PYG{n}{A}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{n}{P}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{and}\PYG{+w}{ }\PYG{n}{GetDate}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaVencimiento}
-
 \PYG{p}{),}
 \PYG{n}{R2}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{CodComunidad}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
 \PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodComunidad}
 \PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestatario}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{R1}
-\PYG{+w}{    }\PYG{k}{WHERE}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{R1}\PYG{p}{.}\PYG{n}{CodPrestatario}
+\PYG{+w}{    }\PYG{k}{WHERE}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{n}{R1}\PYG{p}{.}\PYG{n}{CodPrestatario}
 \PYG{p}{)}
 \PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarComunidades}\PYG{+w}{ }\PYG{n}{R2}\PYG{p}{;}
 \PYG{k}{go}

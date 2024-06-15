@@ -1,13 +1,17 @@
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{k}{WITH}
-\PYG{n}{R}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
-\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{NroComunidades}
-\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Prestatario}\PYG{+w}{ }\PYG{n}{Pio}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodPrestatario}
-\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{CodOficial}
-\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}
-\PYG{+w}{        }\PYG{k}{select}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{CodComunidad}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{from}\PYG{+w}{ }\PYG{n}{Comunidad}
-\PYG{+w}{    }\PYG{p}{)}
+\PYG{n}{R1}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{(}\PYG{k}{SUM}\PYG{p}{(}\PYG{n}{P}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{k}{IsNull}\PYG{p}{(}\PYG{n}{A}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)))}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{SaldoEnRiesgo}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Amortizacion}\PYG{+w}{ }\PYG{n}{A}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A}\PYG{p}{.}\PYG{n}{DocPrestamo}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{p}{(}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{n}{P}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{k}{IsNull}\PYG{p}{(}\PYG{n}{A}\PYG{p}{.}\PYG{n}{Importe}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{+w}{ }\PYG{k}{and}
+\PYG{+w}{             }\PYG{n}{DateDiff}\PYG{p}{(}\PYG{k}{month}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{GetDate}\PYG{p}{(),}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaVencimiento}\PYG{+w}{ }\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}
+\PYG{p}{),}
+\PYG{n}{R2}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{SUM}\PYG{p}{(}\PYG{k}{IsNull}\PYG{p}{(}\PYG{n}{SaldoEnRiesgo}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{))}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{SaldoTotalEnRiesgo}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Oficial}\PYG{+w}{ }\PYG{n}{O}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{R1}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{R1}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodOficial}
 \PYG{p}{)}
-\PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarOficiales}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{;}
+\PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarOficiales}\PYG{+w}{ }\PYG{n}{R2}\PYG{p}{;}
 \PYG{k}{go}
 \end{Verbatim}

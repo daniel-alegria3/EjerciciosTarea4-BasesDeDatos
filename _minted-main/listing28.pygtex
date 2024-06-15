@@ -1,12 +1,23 @@
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{k}{WITH}
+\PYG{n}{MEJORES}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{month}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{Mes}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Oficial}\PYG{+w}{ }\PYG{n}{O}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{    }\PYG{k}{WHERE}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{year}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2003}
+\PYG{p}{),}
 \PYG{n}{R}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
-\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}
-\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Oficial}\PYG{+w}{ }\PYG{n}{O}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodOficial}
-\PYG{+w}{    }\PYG{k}{WHERE}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{+w}{ }\PYG{k}{BETWEEN}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZdq{}01/01/2003\PYGZdq{}}\PYG{+w}{ }\PYG{k}{AND}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZdq{}12/31/2003\PYGZdq{}}
-\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}
-\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{P}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{M}\PYG{p}{.}\PYG{n}{Mes}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{M}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{MEJORES}\PYG{+w}{ }\PYG{n}{M}
+\PYG{+w}{    }\PYG{k}{WHERE}\PYG{+w}{ }\PYG{n}{M}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{        }\PYG{k}{select}\PYG{+w}{ }\PYG{n}{top}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{m}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{        }\PYG{k}{from}\PYG{+w}{ }\PYG{n}{MEJORES}\PYG{+w}{ }\PYG{n}{m}
+\PYG{+w}{        }\PYG{k}{where}\PYG{+w}{ }\PYG{n}{m}\PYG{p}{.}\PYG{n}{Mes}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{M}\PYG{p}{.}\PYG{n}{Mes}\PYG{+w}{ }\PYG{k}{and}\PYG{+w}{ }\PYG{n}{m}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{M}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{        }\PYG{k}{order}\PYG{+w}{ }\PYG{k}{by}\PYG{+w}{ }\PYG{n}{m}\PYG{p}{.}\PYG{n}{CodOficial}\PYG{+w}{ }\PYG{k}{desc}
+\PYG{+w}{    }\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{month}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{O}\PYG{p}{.}\PYG{n}{CodOficial}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{year}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2003}
 \PYG{p}{)}
+
 \PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarOficiales}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{;}
 \PYG{k}{go}
 \end{Verbatim}
