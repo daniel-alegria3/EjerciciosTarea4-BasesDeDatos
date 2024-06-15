@@ -1,0 +1,43 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{WITH}
+\PYG{n}{T}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{FechaPrestamo}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Prestatario}\PYG{+w}{ }\PYG{n}{Pio}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodPrestatario}
+\PYG{p}{),}
+
+\PYG{n}{Q0}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{T}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{Total2000}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{T}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{year}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2000}
+\PYG{p}{),}
+\PYG{n}{Q1}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{T}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{Total2001}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{T}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{year}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2001}
+\PYG{p}{),}
+\PYG{n}{Q2}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{T}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{Total2002}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{T}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{year}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2002}
+\PYG{p}{),}
+\PYG{n}{Q3}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{T}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{Total2003}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{left}\PYG{+w}{ }\PYG{k}{outer}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{T}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{n}{DATEPART}\PYG{p}{(}\PYG{k}{year}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{T}\PYG{p}{.}\PYG{n}{FechaPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2003}
+\PYG{p}{),}
+
+\PYG{n}{R}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{Q0}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q0}\PYG{p}{.}\PYG{n}{Total2000}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q1}\PYG{p}{.}\PYG{n}{Total2001}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q2}\PYG{p}{.}\PYG{n}{Total2002}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q3}\PYG{p}{.}\PYG{n}{Total2003}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Q0}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Q3}
+\PYG{+w}{    }\PYG{k}{WHERE}\PYG{+w}{ }\PYG{n}{Q0}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Q1}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Q2}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Q3}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{ORDER}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{Q0}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{p}{)}
+
+\PYG{k}{SELECT}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{NombreComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{.}\PYG{o}{*}
+\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{R}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{;}
+\PYG{k}{go}
+\end{Verbatim}

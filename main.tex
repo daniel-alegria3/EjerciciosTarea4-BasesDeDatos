@@ -1,0 +1,121 @@
+\documentclass[a4paper,openany,11pt]{article}
+\usepackage[inner=1.0cm,outer=0.5cm,top=1cm,bottom=1cm]{geometry} %margen 2.54
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{csvsimple}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[frozencache=true]{minted}
+% \usepackage[finalizecache]{minted}
+% \usepackage{minted}
+% \usepackage{caption}
+% \captionsetup{justification=raggedright,singlelinecheck=false}
+% \pagenumbering{gobble}
+
+\newcommand\skiplines[1]{\vspace{#1\baselineskip}}
+
+\title{Titulo}
+\author{Alegria Sallo Daniel Rodrigo (215270)}
+
+
+\begin{document}
+\maketitle
+\section[5.1]{Investigacion}
+Investigar las funciones mas importantes de SQL SERVER, tales como:
+
+\begin{enumerate}
+    \item \textbf{SubString:}
+        La función SUBSTRING se utiliza para extraer una parte de una cadena de caracteres.
+
+        Syntaxis: \mintinline{sql}{SUBSTRING ( expression, start, length )}
+        \begin{itemize}
+            \item \textbf{expression}: La cadena de caracteres de la que se
+                desea extraer una parte.
+            \item \textbf{start}: La posición inicial (basada en 1).
+            \item \textbf{length}: La longitud de la parte que se desea extraer.
+        \end{itemize}
+
+        Ejemplo: \mintinline{sql}{SELECT SUBSTRING('Hello World', 7, 5); -- Devuelve 'World'}
+
+    \skiplines{1}
+    \item \textbf{DatePart:}
+        La función DATEPART devuelve una parte especifica de una fecha
+
+        Syntaxis: \mintinline{sql}{DATEPART ( part, date )}
+        \begin{itemize}
+            \item \textbf{part}: La parte de la fecha que se desea extraer (por
+                ejemplo, year, month, day, hour, etc).
+            \item \textbf{date}: La fecha de la que se desea extraer la parte.
+        \end{itemize}
+
+        Ejemplo: \mintinline{sql}{DATEPART(year, "2003/08/27"); -- Devuelve 2024}
+
+    \skiplines{1}
+    \item \textbf{DateDiff:}
+        La función DATEDIFF devuelve la diferencia entre dos fechas en terminos
+        de una parte especifica
+
+        Syntaxis: \mintinline{sql}{DATEDIFF( part, startdate, enddate )}
+        \begin{itemize}
+            \item \textbf{part}: La parte de la fecha para la diferencia (por
+                ejemplo, day, month, year, etc).
+            \item \textbf{startdate}: La fecha de inicio.
+            \item \textbf{enddate}: La fecha final.
+        \end{itemize}
+
+        Ejemplo: \mintinline{sql}{DATEDIFF(day, "2003/08/27", 2003/08/3"); -- Devuelve 25}
+
+    \skiplines{1}
+    \item \textbf{IsNull:}
+        La función ISNULL reemplaza los valores NULL con un valor especificado
+
+        Syntaxis: \mintinline{sql}{ISNULL( expression, replacement )}
+        \begin{itemize}
+            \item \textbf{expression}: La expresion que puede ser NULL.
+            \item \textbf{replacement}: El valor que se utilizara en lugar de NULL.
+        \end{itemize}
+
+        Ejemplo: \mintinline{sql}{ISNULL(NULL, "No hay valor"); -- Devuelve "No hay valor"}
+
+    \skiplines{1}
+    \item \textbf{Cast:}
+        La función CAST convierte una expresion de un tipo de datos a otro
+
+        Syntaxis: \mintinline{sql}{CAST( expression as data_type )}
+        \begin{itemize}
+            \item \textbf{expression}: La expresion que se va a convertir.
+            \item \textbf{data\_type}: El tipo de datos al que se va convertir
+                la expresion.
+        \end{itemize}
+
+        Ejemplo: \mintinline{sql}{CAST(123 as VARCHAR(10)); -- Devuelve "123"}
+
+    \skiplines{1}
+    \item \textbf{GetDate:}
+        La función GETDATE devuelve la fecha y hora actuales del sistema
+
+        Syntaxis: \mintinline{sql}{GETDATE()}
+        Ejemplo: \mintinline{sql}{GETDATE(); -- Devuelve la fecha y hora actual}
+
+    \skiplines{1}
+    \item \textbf{Str:}
+        La función STR convierte un numero en una cadena de caracteres.
+
+        Syntaxis: \mintinline{sql}{STR( number, length, decimal )}
+        \begin{itemize}
+            \item \textbf{number}: El numero que se va a convertir.
+            \item \textbf{length}: La longitud de la caden resultante,
+                incluyendo el punto decimal y los decimales.
+            \item \textbf{decimal}: El numero de lugares decimales.
+        \end{itemize}
+
+        Ejemplo: \mintinline{sql}{STR(123.45, 6, VARCHAR(10)); -- Devuelve "123"}
+\end{enumerate}
+
+\section[5.2]{Ejercicios}
+Escribir las sentencias SELECT para obtener la siguiente informacion
+
+\input{code.tex}
+
+\end{document}

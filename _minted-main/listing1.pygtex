@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{SUBSTRING}\PYG{+w}{ }\PYG{p}{(}\PYG{+w}{ }\PYG{n}{expression}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{start}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{length}\PYG{+w}{ }\PYG{p}{)}
+\end{Verbatim}

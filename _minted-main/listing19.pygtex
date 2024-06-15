@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{WITH}
+\PYG{n}{R}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{NroPrestatarios}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{TOP}\PYG{p}{(}\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n}{NroPrestatarios}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Comunidad}\PYG{+w}{ }\PYG{k}{C}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Prestatario}\PYG{+w}{ }\PYG{n}{P}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{P}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{k}{C}\PYG{p}{.}\PYG{n}{CodComunidad}
+\PYG{+w}{    }\PYG{k}{ORDER}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{NroPrestatarios}\PYG{+w}{ }\PYG{k}{DESC}
+\PYG{p}{)}
+\PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarComunidades}\PYG{+w}{ }\PYG{n}{R}
+\PYG{k}{go}
+\end{Verbatim}

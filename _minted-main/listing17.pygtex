@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{WITH}
+\PYG{n}{R}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{CodPrestatario}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{    }\PYG{k}{SELECT}\PYG{+w}{ }\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodPrestatario}
+\PYG{+w}{    }\PYG{k}{FROM}\PYG{+w}{ }\PYG{n}{Prestatario}\PYG{+w}{ }\PYG{n}{Pio}\PYG{+w}{ }\PYG{k}{inner}\PYG{+w}{ }\PYG{k}{join}\PYG{+w}{ }\PYG{n}{Prestamo}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{+w}{ }\PYG{k}{on}\PYG{+w}{ }\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodPrestatario}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{CodPrestatario}
+\PYG{+w}{    }\PYG{k}{GROUP}\PYG{+w}{ }\PYG{k}{BY}\PYG{+w}{ }\PYG{n}{Pio}\PYG{p}{.}\PYG{n}{CodPrestatario}
+\PYG{+w}{    }\PYG{k}{HAVING}\PYG{+w}{ }\PYG{k}{COUNT}\PYG{p}{(}\PYG{n}{Pmo}\PYG{p}{.}\PYG{n}{DocPrestamo}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{p}{)}
+\PYG{k}{exec}\PYG{+w}{ }\PYG{n}{cr\PYGZus{}CompletarPrestatarios}\PYG{+w}{ }\PYG{n}{R}\PYG{p}{;}
+\PYG{k}{go}
+\end{Verbatim}

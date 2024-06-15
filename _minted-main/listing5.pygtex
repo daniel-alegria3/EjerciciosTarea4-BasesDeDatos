@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{DATEDIFF}\PYG{p}{(}\PYG{+w}{ }\PYG{n}{part}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{startdate}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{enddate}\PYG{+w}{ }\PYG{p}{)}
+\end{Verbatim}

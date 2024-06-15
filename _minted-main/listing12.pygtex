@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{GETDATE}\PYG{p}{();}\PYG{+w}{ }\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Devuelve la fecha y hora actual}
+\end{Verbatim}
