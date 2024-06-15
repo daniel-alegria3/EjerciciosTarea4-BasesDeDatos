@@ -1,5 +1,7 @@
 \begin{enumerate}
+\skiplines{1}
 \item Relación de préstamos cancelados de un determinado prestatario.
+
 \begin{minted}[breaklines]{sql}
 WITH R(CodPrestatario, DocPrestamo) as (
     SELECT P.CodPrestatario, P.DocPrestamo
@@ -11,8 +13,10 @@ exec cr_CompletarPrestamos R;
 go
 \end{minted}
 
+\skiplines{}
 \item Relación de préstamos efectuados por los prestatarios de una determinada
 comunidad.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R (CodComunidad, CodPrestatario) as (
@@ -23,8 +27,10 @@ exec cr_CompletarPrestamos R;
 go
 \end{minted}
 
+\skiplines{}
 \item Relación de prestatarios que hasta la fecha hayan efectuado más de 5
 préstamos.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R (CodPrestatario) as (
@@ -37,8 +43,10 @@ exec cr_CompletarPrestatarios R;
 go
 \end{minted}
 
+\skiplines{}
 \item Relación de prestatarios morosos, es decir, aquellos que aún no han
 cancelado alguna de sus deudas y ya pasó la fecha de vencimiento.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R (CodPrestatario) as (
@@ -51,7 +59,9 @@ exec cr_CompletarPrestatarios R;
 go
 \end{minted}
 
+\skiplines{}
 \item Relación de las 5 comunidades que tienen el mayor número de prestatarios.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R (CodComunidad, NroPrestatarios) as (
@@ -64,8 +74,10 @@ exec cr_CompletarComunidades R
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de comunidades cuyos prestatarios que aún tienen saldos, no hayan
 efectuado ninguna amortización en lo que va del año 2004.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodPrestatario) as (
@@ -83,7 +95,9 @@ exec cr_CompletarComunidades R2;
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de comunidades que no tengan prestatarios morosos
+
 \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodPrestatario) as (
@@ -95,13 +109,22 @@ R1 (CodPrestatario) as (
 R2 (CodComunidad) as (
     SELECT P.CodComunidad
     FROM Prestatario P, R1
-    WHERE P.CodPrestatario != R1.CodPrestatario
+    WHERE P.CodPrestatario = R1.CodPrestatario
+),
+R3 (CodComunidad) as (
+    SELECT CodComunidad
+    FROM R1
+    EXCEPT
+    SELECT CodComunidad
+    FROM R2
 )
 exec cr_CompletarComunidades R2;
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de comunidades que tengan prestatarios morosos
+
 \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodPrestatario) as (
@@ -120,9 +143,11 @@ exec cr_CompletarComunidades R2;
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de comunidades con 3 de sus prestatarios más importantes (los
 prestatarios más importantes son los que han obtenido mayor número de
 préstamos).
+
 \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodComunidad, CodPrestatario, NroPrestamos) as (
@@ -147,7 +172,9 @@ exec cr_CompletarPrestatarios R2;
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de prestatarios que en ninguno de sus préstamos hayan incurrido en mora.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R1 as (
@@ -166,8 +193,10 @@ exec cr_CompletarPrestatarios R2;
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de prestatarios que en todas las veces que solicitó un préstamo,
 sólo una vez incurrió en mora.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R1 as (
@@ -186,7 +215,9 @@ exec cr_CompletarPrestatarios R2;
 go
 \end{minted}
 
+\skiplines{1}
 \item Relación de prestatarios que hayan cancelado sus préstamos sin pagos parciales.
+
 \begin{minted}[breaklines]{sql}
 WITH
 R as (
@@ -230,7 +261,6 @@ go
 \end{minted}
 
 \skiplines{1}
-
 \item Relación de oficiales de crédito que no hayan colocado por lo menos un
 préstamo en algún mes del año 2003.
 
@@ -248,7 +278,6 @@ go
 \end{minted}
 
 \skiplines{1}
-
 \item Relación de préstamos en riesgo. Se considera un préstamo en riesgo cuando
 tiene saldo y ha trascurrido más de 6 meses de su fecha de vencimiento.
 

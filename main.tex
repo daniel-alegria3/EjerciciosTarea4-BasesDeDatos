@@ -13,14 +13,27 @@
 % \captionsetup{justification=raggedright,singlelinecheck=false}
 % \pagenumbering{gobble}
 
+\usepackage{xurl}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    urlcolor = cyan,
+    % breaklinks = true, % seems it doesnt work in tectonic?
+}
+
+
 \newcommand\skiplines[1]{\vspace{#1\baselineskip}}
 
-\title{Titulo}
+\title{Tarea4 - Fundamentos y Diseño de Bases de Datos}
 \author{Alegria Sallo Daniel Rodrigo (215270)}
 
 
 \begin{document}
 \maketitle
+
+El codigo fuente de los ejercicios puede encontrarse en el repositorio
+\url{https}
+
 \section[5.1]{Investigacion}
 Investigar las funciones mas importantes de SQL SERVER, tales como:
 
@@ -114,6 +127,13 @@ Investigar las funciones mas importantes de SQL SERVER, tales como:
 \end{enumerate}
 
 \section[5.2]{Ejercicios}
+Antes de desarrollar los ejercicios, decidi hacer un script que cree
+procedimientos que completen la informacion de una tabla. El script no
+funciona, pero lo intente. Cada vez que haga referencia a este procedimiento en
+los ejercicios, simmplemente estoy tratando de completar la informacion.
+
+\inputminted[breaklines]{sql}{./code/proc.sql}
+
 Escribir las sentencias SELECT para obtener la siguiente informacion
 
 \input{code.tex}
