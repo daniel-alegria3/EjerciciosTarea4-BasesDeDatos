@@ -16,7 +16,7 @@ minted:
 	tectonic main.tex -Z shell-escape-cwd=${PWD}
 
 clean:
-	rm -f main.aux main.log main.pyg main.xdv
+	rm -f main.aux main.log main.pyg main.xdv main.out
 
 .PHONY: clean code
 
