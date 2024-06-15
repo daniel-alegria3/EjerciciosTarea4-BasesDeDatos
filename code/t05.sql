@@ -1,4 +1,6 @@
+--- \skiplines{}
 --- \item Relación de las 5 comunidades que tienen el mayor número de prestatarios.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R (CodComunidad, NroPrestatarios) as (

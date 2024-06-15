@@ -1,6 +1,8 @@
+--- \skiplines{1}
 --- \item Relación de comunidades con 3 de sus prestatarios más importantes (los
 --- prestatarios más importantes son los que han obtenido mayor número de
 --- préstamos).
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodComunidad, CodPrestatario, NroPrestamos) as (

@@ -1,5 +1,7 @@
+--- \skiplines{}
 --- \item Relación de préstamos efectuados por los prestatarios de una determinada
 --- comunidad.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R (CodComunidad, CodPrestatario) as (

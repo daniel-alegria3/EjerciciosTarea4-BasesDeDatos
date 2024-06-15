@@ -1,5 +1,7 @@
+--- \skiplines{}
 --- \item Relación de prestatarios morosos, es decir, aquellos que aún no han
 --- cancelado alguna de sus deudas y ya pasó la fecha de vencimiento.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R (CodPrestatario) as (

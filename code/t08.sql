@@ -1,4 +1,6 @@
+--- \skiplines{1}
 --- \item Relación de comunidades que tengan prestatarios morosos
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodPrestatario) as (

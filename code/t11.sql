@@ -1,5 +1,7 @@
+--- \skiplines{1}
 --- \item Relación de prestatarios que en todas las veces que solicitó un préstamo,
 --- sólo una vez incurrió en mora.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R1 as (

@@ -1,4 +1,6 @@
+--- \skiplines{1}
 --- \item Relación de prestatarios que en ninguno de sus préstamos hayan incurrido en mora.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R1 as (

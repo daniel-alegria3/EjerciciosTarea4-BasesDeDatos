@@ -1,5 +1,4 @@
 --- \skiplines{1}
-
 --- \item Relación de préstamos en riesgo. Se considera un préstamo en riesgo cuando
 --- tiene saldo y ha trascurrido más de 6 meses de su fecha de vencimiento.
 

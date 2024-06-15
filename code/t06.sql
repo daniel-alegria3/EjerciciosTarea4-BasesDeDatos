@@ -1,5 +1,7 @@
+--- \skiplines{1}
 --- \item Relación de comunidades cuyos prestatarios que aún tienen saldos, no hayan
 --- efectuado ninguna amortización en lo que va del año 2004.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R1 (CodPrestatario) as (

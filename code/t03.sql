@@ -1,5 +1,7 @@
+--- \skiplines{}
 --- \item Relación de prestatarios que hasta la fecha hayan efectuado más de 5
 --- préstamos.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R (CodPrestatario) as (

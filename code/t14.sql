@@ -1,5 +1,4 @@
 --- \skiplines{1}
-
 --- \item Relación de oficiales de crédito que no hayan colocado por lo menos un
 --- préstamo en algún mes del año 2003.
 

@@ -1,4 +1,6 @@
+--- \skiplines{1}
 --- \item Relación de préstamos cancelados de un determinado prestatario.
+
 --- \begin{minted}[breaklines]{sql}
 WITH R(CodPrestatario, DocPrestamo) as (
     SELECT P.CodPrestatario, P.DocPrestamo

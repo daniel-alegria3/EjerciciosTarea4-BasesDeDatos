@@ -1,4 +1,6 @@
+--- \skiplines{1}
 --- \item Relación de prestatarios que hayan cancelado sus préstamos sin pagos parciales.
+
 --- \begin{minted}[breaklines]{sql}
 WITH
 R as (
