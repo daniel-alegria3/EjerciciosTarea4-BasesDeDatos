@@ -1,5 +1,3 @@
-ITM = ${BIN_DIR}/itm   # ITM needs to be build
-PLOTTER = ${SRCCODE_DIR}/plotter.py
 
 output:
 	tectonic main.tex
